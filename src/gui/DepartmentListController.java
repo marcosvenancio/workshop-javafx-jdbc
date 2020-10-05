@@ -85,6 +85,7 @@ public class DepartmentListController implements Initializable {
 			
 			DepartmentFormController controller = loader.getController();
 			controller.setDepartment(obj); //associando ao objeto department - associando as caixas de texto
+			controller.setDepartmentService(new DepartmentService()); //inhjeção de dependencia
 			controller.updateFormData(); // atualizando
 			
 			Stage dialogStage = new Stage(); // novo palco e abaixo as configurações
