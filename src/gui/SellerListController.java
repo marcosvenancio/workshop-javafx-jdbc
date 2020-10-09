@@ -31,6 +31,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Seller;
+import model.services.DepartmentService;
 import model.services.SellerService;
 
 public class SellerListController implements Initializable, DataChangeListener {
@@ -114,7 +115,8 @@ public class SellerListController implements Initializable, DataChangeListener {
 
 			SellerFormController controller = loader.getController();
 			controller.setSeller(obj); // associando ao objeto department - associando as caixas de texto
-			controller.setSellerService(new SellerService()); // inhjeção de dependencia
+			controller.setServices(new SellerService(), new DepartmentService()); // inhjeção de dependencia
+			controller.loadAsssociatedObjects(); // vai carregar os departamentos no banco de dados e mandar pro controller
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData(); // atualizando
 
@@ -126,6 +128,7 @@ public class SellerListController implements Initializable, DataChangeListener {
 			dialogStage.initModality(Modality.WINDOW_MODAL); // esse método indica o comportamento modal da janela - ela fica travada
 			dialogStage.showAndWait();
 		} catch (IOException e) {
+			e.printStackTrace();
 			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
 	}
